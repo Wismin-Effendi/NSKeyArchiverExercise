@@ -11,8 +11,19 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [Any]()
+    var objects = [Car]()
 
+    var filePath: String? {
+        do {
+            let fileManager = FileManager.default
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let savePath = documentDirectory.appendingPathComponent("cars.bin")
+            return savePath.path
+        } catch {
+            print("Error getting path")
+            return nil
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +41,11 @@ class MasterViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        
+        if let path = filePath,
+            let array = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? [Car] {
+            objects = array
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +54,13 @@ class MasterViewController: UITableViewController {
     }
 
     func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
+        var carsIterator = CarsIterator()
+        
+        objects.insert(carsIterator.next()!, at: 0)
+        
+        if let path = filePath {
+            NSKeyedArchiver.archiveRootObject(objects, toFile: path)
+        }
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
@@ -48,7 +70,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let object = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -70,7 +92,7 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let object = objects[indexPath.row] as! NSDate
+        let object = objects[indexPath.row] 
         cell.textLabel!.text = object.description
         return cell
     }
@@ -83,6 +105,10 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             objects.remove(at: indexPath.row)
+            // persist the data after deletion
+            if let path = filePath {
+                NSKeyedArchiver.archiveRootObject(objects, toFile: path)
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

@@ -13,6 +13,7 @@
 		37E674601EF9668F00559DE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E6745E1EF9668F00559DE1 /* Main.storyboard */; };
 		37E674621EF9668F00559DE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E674611EF9668F00559DE1 /* Assets.xcassets */; };
 		37E674651EF9668F00559DE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E674631EF9668F00559DE1 /* LaunchScreen.storyboard */; };
+		37E6746D1EF967A100559DE1 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6746C1EF967A100559DE1 /* Car.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		37E674611EF9668F00559DE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37E674641EF9668F00559DE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37E674661EF9668F00559DE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37E6746C1EF967A100559DE1 /* Car.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				37E674581EF9668F00559DE1 /* AppDelegate.swift */,
 				37E6745A1EF9668F00559DE1 /* MasterViewController.swift */,
 				37E6745C1EF9668F00559DE1 /* DetailViewController.swift */,
+				37E6746C1EF967A100559DE1 /* Car.swift */,
 				37E6745E1EF9668F00559DE1 /* Main.storyboard */,
 				37E674611EF9668F00559DE1 /* Assets.xcassets */,
 				37E674631EF9668F00559DE1 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			files = (
 				37E6745D1EF9668F00559DE1 /* DetailViewController.swift in Sources */,
 				37E6745B1EF9668F00559DE1 /* MasterViewController.swift in Sources */,
+				37E6746D1EF967A100559DE1 /* Car.swift in Sources */,
 				37E674591EF9668F00559DE1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
